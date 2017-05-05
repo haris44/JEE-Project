@@ -16,11 +16,11 @@ public class TestConnection {
 		// User users = dao.getUserById("ADMIN");
 		// System.out.println(users.getPassword());
 		
-		//  User users = new User();
-		//  users.setId("BANQUE");
-		//  users.setPassword("Plouf");
-		//  users.setAdministrator(false);
-		//  dao.addUser(users);
+		  User users = new User();
+		  users.setId("BANQUE");
+		  users.setPassword("Plouf");
+		  users.setAdministrator(false);
+		  dao.addUser(users);
 
 		// User users2 = dao.getUserById("BANQUE");
 		// System.out.println(users2.getPassword());
