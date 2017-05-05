@@ -10,7 +10,7 @@
 
 .classpath
 .project
-
+bin/*
 build
 WebContent/META-INF
 
