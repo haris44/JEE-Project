@@ -16,7 +16,7 @@
  <% 
  	List<User> attribut = (List<User>) request.getAttribute("user");
 	for(User user : attribut){
-	    out.println( user.getId() );
+	    out.println( user.getId() + user.getPassword());
 	}
 
 %>

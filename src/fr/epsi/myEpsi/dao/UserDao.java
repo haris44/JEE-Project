@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -54,13 +53,11 @@ public class UserDao implements IUserDao{
 		ResultSet resultats = null;
 
 		try {
-
 			con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9003");
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE id = ?");
 			ps.setString(1, id);
 			Statement stmt = con.createStatement();
 			   resultats = ps.executeQuery();
-			  System.out.println(ps.getParameterMetaData());
 			    while (resultats.next()) {
 			    	return new User(resultats.getString(1), resultats.getString(2), resultats.getBoolean(3));
 			     }	   

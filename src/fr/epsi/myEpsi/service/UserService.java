@@ -17,25 +17,22 @@ public class UserService implements IUserService{
 
 	@Override
 	public User getUserById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getUserById(id);
 	}
 
 	@Override
 	public void addUser(User user) {
-		// TODO Auto-generated method stub
-		
+		dao.addUser(user);	
 	}
 
 	@Override
 	public void updateUser(User user) {
-		// TODO Auto-generated method stub
-		
+		dao.updateUser(user);
 	}
 
 	@Override
 	public void deleteUser(User user) {
-		// TODO Auto-generated method stub
+		dao.deleteUser(user);
 		
 	}
 
