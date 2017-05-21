@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import fr.epsi.myEpsi.beans.Message;
 import fr.epsi.myEpsi.beans.User;
 import fr.epsi.myEpsi.beans.Status;
@@ -25,7 +28,7 @@ public class Messages extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
     private IMessageService messageService;
-	
+    Logger logger =  LogManager.getLogger(Messages.class.getName());
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -39,8 +42,11 @@ public class Messages extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.info("GET /Messages");
+	    logger.debug(request);
 		User connected = (User) request.getSession().getAttribute("user");
 		if(connected == null){
+			logger.error("user not connected", request);
 			  response.sendRedirect("Signin");
 		} else {
 			// Create List Of Status
@@ -62,6 +68,4 @@ public class Messages extends HttpServlet {
 			request.getRequestDispatcher("Messages.jsp").forward(request, response);
 		}
 	}
-
-
 }

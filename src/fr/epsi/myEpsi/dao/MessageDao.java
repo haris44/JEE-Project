@@ -140,5 +140,31 @@ public class MessageDao implements IMessageDao {
 		
 		
 	}
+	@Override
+	public List<Message> getListOfMessages() {
+		Connection cn = db.getConnection();
+		ResultSet resultats = null;
+
+		ArrayList messages = new ArrayList<Message>();
+		try {
+			PreparedStatement ps = cn.prepareStatement("SELECT * FROM MESSAGES");
+			resultats = ps.executeQuery();
+			    while (resultats.next()) {
+			    	Message message = new Message();
+			    	message.setId(resultats.getLong(1));
+			    	message.setTitle(resultats.getString(2));
+			    	message.setContent(resultats.getString(3));
+			    	message.setAuthor(userService.getUserById(resultats.getString(4)));
+			    	message.setCreationDate(resultats.getTimestamp(5));
+			    	message.setUpdateDate(resultats.getTimestamp(6));
+			    	message.setStatus(Status.fromOrdinal(resultats.getInt(7)));
+			    	messages.add(message);
+			     }	   
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return messages;
+	}
 
 }

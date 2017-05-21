@@ -19,6 +19,7 @@ public class MessageService implements IMessageService {
 	public List<Message> getListOfMessages(User user) {
 		return messageDao.getListOfMessages(user);
 	}
+	
 
 	@Override
 	public Message getMessage(Long id) {
@@ -40,6 +41,10 @@ public class MessageService implements IMessageService {
 	@Override
 	public void deleteMessage(Message message) {
 		messageDao.deleteMessage(message);
+	}
+	@Override
+	public List<Message> getListOfMessages() {
+		return messageDao.getListOfMessages();
 	}
 
 }
