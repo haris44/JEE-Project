@@ -40,6 +40,7 @@ public class Users extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
 		logger.info("get Users");
 		User connected = (User) request.getSession().getAttribute("user");
 		if(connected == null){
@@ -98,6 +99,13 @@ public class Users extends HttpServlet {
 		} else {
 			response.sendRedirect("Users");
 		}
+=======
+		logger.info("GET /Users");
+	    logger.debug(request);
+		List<User> user = service.getListOfUsers();
+		request.setAttribute("user", user);
+		request.getRequestDispatcher("Users.jsp").forward(request, response);
+>>>>>>> 0b353e1342e5b734ce3ca99b2826f5478cdc951b
 	}
 
 }

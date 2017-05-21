@@ -8,6 +8,7 @@ import fr.epsi.myEpsi.beans.User;
 public interface IMessageService {
 
 	List<Message> getListOfMessages(User user);
+	List<Message> getListOfMessages();
 	Message getMessage(Long id);
 	void addMessage(Message message);
 	void updateMessageStatus(Message message, int status);
