@@ -1,4 +1,5 @@
 
+<%@page import="java.util.List"%>
 <%@page import="fr.epsi.myEpsi.beans.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -13,8 +14,11 @@
 	Liste des utilisateur
 
  <% 
- 	User attribut = (User) request.getAttribute("user");
-    out.println( attribut.getId() );
+ 	List<User> attribut = (List<User>) request.getAttribute("user");
+	for(User user : attribut){
+	    out.println( user.getId() );
+	}
+
 %>
 
 </body>

@@ -1,6 +1,8 @@
 package fr.epsi.myEpsi.servlet;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +36,7 @@ public class Users extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = service.getListOfUsers().get(0);
+		List<User> user = service.getListOfUsers();
 		request.setAttribute("user", user);
 		request.getRequestDispatcher("Users.jsp").forward(request, response);
 	}
