@@ -1,4 +1,5 @@
 *.class
+*.project
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -8,8 +9,6 @@
 *.ear
 
 .classpath
-.project
-.project~
 .settings
 bin/*
 build
