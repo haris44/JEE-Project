@@ -1,5 +1,5 @@
 *.class
-
+*.project*
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -9,8 +9,8 @@
 *.ear
 
 .classpath
-.project
-
+.settings
+bin/*
 build
 WebContent/META-INF
 
