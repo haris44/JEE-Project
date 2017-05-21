@@ -54,7 +54,7 @@ public class Messages extends HttpServlet {
 			
 			// Get list Of messages
 			List<Message> messages = messageService.getListOfMessages(connected);
-			request.setAttribute("username", connected.getId());
+			request.setAttribute("user", connected);
 			request.setAttribute("messages", messages);
 			
 			// Add Status for option form

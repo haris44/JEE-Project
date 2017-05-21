@@ -31,10 +31,14 @@ public class MessageDao implements IMessageDao {
 
 		ArrayList messages = new ArrayList<Message>();
 		try {
-			PreparedStatement ps = cn.prepareStatement("SELECT * FROM MESSAGES WHERE USER_ID = ? OR STATUS = ? AND STATUS != ?");
-			ps.setString(1, user.getId());
-			ps.setInt(2, Status.PUBLIC.ordinal());
-			ps.setInt(3, Status.ARCHIVED.ordinal());
+			PreparedStatement ps;
+			ps = cn.prepareStatement("SELECT * FROM MESSAGES");
+			if(!user.getAdministrator()){
+				ps = cn.prepareStatement("SELECT * FROM MESSAGES WHERE USER_ID = ? OR STATUS = ? AND STATUS != ?");
+				ps.setString(1, user.getId());
+				ps.setInt(2, Status.PUBLIC.ordinal());
+				ps.setInt(3, Status.ARCHIVED.ordinal());
+			}	
 			resultats = ps.executeQuery();
 			    while (resultats.next()) {
 			    	Message message = new Message();

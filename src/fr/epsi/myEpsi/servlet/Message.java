@@ -2,6 +2,7 @@ package fr.epsi.myEpsi.servlet;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -37,9 +38,13 @@ public class Message extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String test = request.getParameter("id");
-		if(test != null){
+		User connected = (User) request.getSession().getAttribute("user");	
+		ArrayList<Status> listStatus = Status.getList();
+	
+		if(test != null && connected != null){
 			fr.epsi.myEpsi.beans.Message message = messageService.getMessage(Long.parseLong(request.getParameter("id"))); 
 			request.setAttribute("message", message );
+			request.setAttribute("status", listStatus );
 			request.getRequestDispatcher("Message.jsp").forward(request, response);
 		} else {
 			 response.sendRedirect("Messages");
@@ -53,7 +58,11 @@ public class Message extends HttpServlet {
 		User connected = (User) request.getSession().getAttribute("user");
 		if(connected == null){
 			  response.sendRedirect("Signin");
-		} else {   
+		} else if(request.getParameter("action") != null && request.getParameter("action").equals("DELETE")) {
+			this.doDelete(request, response);
+		} else if(request.getParameter("action") != null && request.getParameter("action").equals("PUT")) {
+			this.doPut(request, response);
+		}else {   
 			fr.epsi.myEpsi.beans.Message message = new fr.epsi.myEpsi.beans.Message();
 			message.setTitle(request.getParameter("title"));
 		    message.setContent(request.getParameter("content"));
@@ -62,8 +71,33 @@ public class Message extends HttpServlet {
 		    message.setAuthor(connected); 
 		    message.setStatus(Status.valueOf(request.getParameter("status")));
 		    messageService.addMessage(message);
-		    
 		    response.sendRedirect("Messages");
 		}
 	 }
+	
+	/** 
+	 * @see HttpServlet#doDelete(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User connected = (User) request.getSession().getAttribute("user");
+		String id = request.getParameter("id");
+		if(id != null && connected != null){
+			fr.epsi.myEpsi.beans.Message message = messageService.getMessage(Long.parseLong(request.getParameter("id"))); 
+			messageService.deleteMessage(message);
+			response.sendRedirect("Messages");
+		} else {
+			 response.sendRedirect("Signin");
+		}
+	}
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = request.getParameter("id");
+		User connected = (User) request.getSession().getAttribute("user");
+		if(connected == null){
+			  response.sendRedirect("Signin");
+		} else {
+			fr.epsi.myEpsi.beans.Message message = messageService.getMessage(Long.parseLong(request.getParameter("id")));
+		    messageService.updateMessageStatus(message, Status.valueOf(request.getParameter("status")).ordinal());
+		    response.sendRedirect("Messages");
+		}
+	}
 }

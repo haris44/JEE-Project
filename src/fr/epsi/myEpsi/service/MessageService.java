@@ -1,5 +1,8 @@
 package fr.epsi.myEpsi.service;
 
+
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import fr.epsi.myEpsi.beans.Message;
@@ -33,10 +36,13 @@ public class MessageService implements IMessageService {
 
 	@Override
 	public void updateMessageStatus(Message message, int status) {
+		message.setUpdateDate(new Timestamp(new Date().getTime()));
 		messageDao.updateMessageStatus(message, status);
 		
 	}
 
+
+	
 	@Override
 	public void deleteMessage(Message message) {
 		messageDao.deleteMessage(message);

@@ -1,6 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="fr.epsi.myEpsi.beans.Message"%>
 <%@page import="fr.epsi.myEpsi.beans.Status"%>
+<%@page import="fr.epsi.myEpsi.beans.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -11,7 +12,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Welcome <% out.println(request.getAttribute("username")); %>
+	<%  User connected = (User) request.getAttribute("user"); %>
+	Welcome <% connected.getId(); %>
 	<br>
 	<br>
 	
@@ -23,9 +25,16 @@
 		%> </h3> <% 
 		%> <p> <% 
 			out.println(message.getContent());
-		%> </P> <% 
-	}
-%>
+		%> <i> <% 
+			out.println("<br>date : " + message.getCreationDate());
+			out.println("<br>status : " + message.getStatus());
+		%> </i> <%
+		%> </p> <%
+			if(connected.getAdministrator() || connected.getId() == message.getAuthor().getId()){
+		%><a href='Message?id=<% out.println(message.getId()); %>'>Voir d'avantage</a> <%
+			} 
+		}
+%> 
 
 <hr>
 <h1>Ajouter un message</h1>
@@ -43,6 +52,11 @@
     <input type="submit" value="Ajouter">
 </form>
 
-
+<%
+	if(connected.getAdministrator()){
+%>
+<hr>
+<a href='Users'>Gérez les utilisateurs</a>
+<% } %>
 </body>
 </html>

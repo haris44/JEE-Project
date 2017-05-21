@@ -24,5 +24,25 @@
 
 <hr>
 
+<form action="Message" method="post">
+	<input name="action" type="hidden" value="DELETE"/>
+	<input name="id" type="hidden" value="<% out.print( message.getId()); %>"/>
+	<input type="submit" value="Supprimer ce post"/>
+</form>
+
+<h1>Modifier ce message</h1>
+<form action="Message" method="post">
+   <input name="action" type="hidden" value="PUT"/>
+   <input name="id" type="hidden" value="<% out.print( message.getId()); %>"/>
+   <label>Status</label>
+   <select name="status">
+   <% 
+   List<Status> statusList = (List<Status>) request.getAttribute("status");
+   for(Status status : statusList){ 
+		out.println("<option>" + status.toString() + "</option>");
+   } %>
+   </select>
+    <input type="submit" value="Ajouter">
+</form>
 </body>
 </html>
