@@ -2,3 +2,28 @@
 body{
 	font-family: 'Roboto', sans-serif;
 }
+html{
+	background-color:#FAFAFA;
+}
+body{
+	margin: 0;
+	padding: 0;
+}
+.mdc-card{
+	background-color:#fff;
+}
+.mdc-toolbar{
+	background-color:#424242;
+	font-family: 'courrier', sans-serif;
+}
+.logo{
+	width:40px;
+	padding-right:30px;
+	padding-left:10px;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}

@@ -19,8 +19,8 @@
 <body>
 
 
-	<%  User connected = (User) request.getAttribute("user"); %>
-	Welcome <% connected.getId(); %>
+ <%  User connected = (User) request.getAttribute("user"); %>
+	Welcome <% out.println(connected.getId()); %>
 	<br>
 	<br>
 	
