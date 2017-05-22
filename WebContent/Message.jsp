@@ -39,7 +39,8 @@
  	Message message = (Message) request.getAttribute("message");
 
 		%>
-		
+<div class="mdc-layout-grid">
+ <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
 <div class="mdc-card">
   <section class="mdc-card__primary">
     <h1 class="mdc-card__title mdc-card__title--large"> <% 
@@ -81,7 +82,8 @@
 
   </section>
 </div>
-
+</div>
+</div>
 
 
 </body>
