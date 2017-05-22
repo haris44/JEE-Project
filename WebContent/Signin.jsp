@@ -12,8 +12,13 @@
     <title>myEPSI</title>
 </head>
 
-<body>
-
+<body id="signin">
+<style>
+#signin{
+	 background-image: url("${pageContext.request.contextPath}/IMG/bg.jpg");
+	 background-repeat:no-repeat;
+}
+</style>
     <div class="mdc-layout-grid">
 
         <div class="mdc-layout-grid__cell"></div>
@@ -23,19 +28,23 @@
                 <form action="Signin" method="post">
                     <section class="mdc-card__media demo-card__16-9-media"></section>
                     <section class="mdc-card__primary">
+                    
                         <h1>Se connecter</h1>
                         
                         
-                        <label class="mdc-textfield">
+                        <div class="mdc-textfield">
 						 	<input class="mdc-textfield__input" 
-                         			 type="text" name="username">
-						  <span class="mdc-textfield__label">Login</span>
-						</label>
+                        			 type="text" name="username"
+                        			 placeholder="Login">
+					  </div>
+						
                         
-                        <label class="mdc-textfield">
-							<input id="password" class="mdc-textfield__input"  type="password" name="password">
-						  <span class="mdc-textfield__label">Mot de passe</span>
-						</label>
+                      <div class="mdc-textfield">
+							<input id="password" class="mdc-textfield__input"  type="password" name="password"
+							placeholder="Mot de passe">
+                      </div>
+						 
+					
                                                                  
                         <span class="error">${error}</span>
                     </section>
@@ -62,13 +71,17 @@
                 <section class="mdc-card__primary">
                     <h1>Creer un compte :</h1>
                     
-                        <label  class="mdc-textfield">Login
-                        	<input  class="mdc-textfield__input" name="login" type="text" /></label>
-                        <label  class="mdc-textfield">Password
-                        	<input  class="mdc-textfield__input" name="password" type="password" /></label>
-                        <label  class="mdc-textfield">Retapez password
-                        	<input  class="mdc-textfield__input" name="repassword" type="password" /></label>
-                       
+                    
+                        <div class="mdc-textfield">
+                        	<input placeholder="Login"  class="mdc-textfield__input" name="login" type="text" />
+                        </div>
+                  <div class="mdc-textfield">
+                  <input placeholder="Mot de passe"  class="mdc-textfield__input" name="password" type="password" />
+                  </div>
+                         <div class="mdc-textfield">
+                        
+                        	<input placeholder="Mot de passe (encore)" class="mdc-textfield__input" name="repassword" type="password" />
+                       </div>
                         
                 </section>
                 <section class="mdc-card__actions">

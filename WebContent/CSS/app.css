@@ -2,3 +2,13 @@
 body{
 	font-family: 'Roboto', sans-serif;
 }
+ .card-message{
+  width: 350px;
+      margin: 10px;
+
+ }
+ .messagesList{
+    display: inline-flex;
+    flex-direction: row;
+        flex-flow: row wrap;
+ }
