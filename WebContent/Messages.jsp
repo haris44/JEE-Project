@@ -18,24 +18,25 @@
 </head>
 <body>
 
-<header class="mdc-toolbar">
 
+<header class="mdc-toolbar">
 
   <div class="mdc-toolbar__row">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-      <span class="mdc-toolbar__title">Messages</span>
+      
+      <span class="mdc-toolbar__title">
+      	<a href="Messages"><img alt="" src="${pageContext.request.contextPath}/IMG/logo.png" class="helper logo"></a>
+     	
+           <%  User connected = (User) request.getAttribute("user"); %>
+			Bienvenue : <% out.println(connected.getId()); %>
+      </span>
 
     </section>
      <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-     <span>
-           <%  User connected = (User) request.getAttribute("user"); %>
-	Bienvenue : <% connected.getId(); %>
-     </span>
      </section>
   </div>
 
 </header>
-
 	
 	<div class="messagesList">
 
