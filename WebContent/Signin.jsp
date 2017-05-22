@@ -12,10 +12,15 @@
     <title>myEPSI</title>
 </head>
 
-<body id="signin">
+<body>
 <style>
-#signin{
-	 background-image: url("${pageContext.request.contextPath}/IMG/bg.jpg") bottom center no-repeat;
+html{
+
+  background: url("${pageContext.request.contextPath}/IMG/bg.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 </style>
     <div class="mdc-layout-grid">
@@ -25,7 +30,6 @@
 
             <div class="mdc-card demo-card">
                 <form action="Signin" method="post">
-                    <section class="mdc-card__media demo-card__16-9-media"></section>
                     <section class="mdc-card__primary">
                     
                         <h1>Se connecter</h1>
@@ -66,7 +70,6 @@
 
             <div class="mdc-card demo-card">
                     <form action="Users" method="post">
-                <section class="mdc-card__media demo-card__16-9-media"></section>
                 <section class="mdc-card__primary">
                     <h1>Creer un compte :</h1>
                     
