@@ -57,11 +57,9 @@ public class Users extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User connected = (User) request.getSession().getAttribute("user");
-		if(connected == null){
-			  response.sendRedirect("Signin");
-		} else if(request.getParameter("action") != null && request.getParameter("action").equals("DELETE")) {
+		if(connected != null && request.getParameter("action") != null && request.getParameter("action").equals("DELETE")) {
 			this.doDelete(request, response);
-		} else if(request.getParameter("action") != null && request.getParameter("action").equals("PUT")) {
+		} else if(connected != null &&request.getParameter("action") != null && request.getParameter("action").equals("PUT")) {
 			this.doPut(request, response);
 		} else if(request.getParameter("password").equals(request.getParameter("repassword"))){   
 			User user = new User();

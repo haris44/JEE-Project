@@ -17,7 +17,7 @@
 	<label>Login</label><input name="login" type="text"/>
 	<label>Password</label><input name="password" type="password"/>
 	<label>Retapez password</label><input name="repassword" type="password"/>
-	<label>Admin</label><input type="checkbox" name="admin"><br>
+	<label>Admin</label><input type="hidden" value="false" name="admin"><br>
 	<input type="submit" value="Ajouter un utilisateur"/>
 </form>
 </body>
