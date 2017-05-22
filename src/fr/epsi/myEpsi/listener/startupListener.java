@@ -1,6 +1,7 @@
 package fr.epsi.myEpsi.listener;
 
 import java.lang.management.ManagementFactory;
+import java.util.Optional;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.MBeanRegistrationException;
@@ -15,12 +16,16 @@ import javax.servlet.annotation.WebListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import fr.epsi.myEpsi.jmx.JmxLogger;
+import fr.epsi.myEpsi.jmx.JmxLoggerMBean;
 import fr.epsi.myEpsi.jmx.Premier;
 import fr.epsi.myEpsi.service.IMessageService;
 import fr.epsi.myEpsi.service.IUserService;
 import fr.epsi.myEpsi.service.MessageService;
 import fr.epsi.myEpsi.service.UserService;
 import fr.epsi.myEpsi.servlet.Messages;
+import utils.JmxUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,26 +38,38 @@ public class startupListener implements ServletContextListener {
      * Default constructor. 
      */
 	 Logger logger =  LogManager.getLogger(startupListener.class.getName());
+	 JmxUtils jmxUtils = new JmxUtils();
+	 
+	 
     public startupListener() {
     	MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-    	ObjectName name = null;
 
-    	try {
-    	    name = new ObjectName("fr.epsi.myEpsi.jmx:type=PremierMBean");
-    	    Premier mbean = new Premier();
-    	    mbs.registerMBean(mbean, name);
-
-    	} catch (MalformedObjectNameException e) {
-    	    e.printStackTrace();
-    	} catch (NullPointerException e) {
-    	    e.printStackTrace();
-    	} catch (InstanceAlreadyExistsException e) {
-    	    e.printStackTrace();
-    	} catch (MBeanRegistrationException e) {
-    	    e.printStackTrace();
+    	
+    	try{
+    		ObjectName premierMBeanName = jmxUtils.getObjectName("fr.epsi.myEpsi.jmx:type=PremierMBean");    		
+    		Premier mbean = new Premier();
+    		mbs.registerMBean(mbean, premierMBeanName);  
     	} catch (NotCompliantMBeanException e) {
-    	    e.printStackTrace();
-    	}
+			logger.error(e.getMessage());
+		} catch (InstanceAlreadyExistsException e) {
+			logger.error(e.getMessage());
+		} catch (MBeanRegistrationException e) {
+			logger.error(e.getMessage());
+		}
+    	
+    	try{
+    		ObjectName loggerBeanName = jmxUtils.getObjectName("fr.epsi.myEpsi.jmx:type=JmxLoggerMBean");    		
+    		JmxLoggerMBean mbean = new JmxLogger();
+    		mbs.registerMBean(mbean, loggerBeanName);  
+
+    	} catch (NotCompliantMBeanException e) {
+			logger.error(e.getMessage());
+		} catch (InstanceAlreadyExistsException e) {
+			logger.error(e.getMessage());
+		} catch (MBeanRegistrationException e) {
+			logger.error(e.getMessage());
+		}
+    	
 
     	IUserService userService = new UserService();
     	Integer usersSize = userService.getListOfUsers().size();
