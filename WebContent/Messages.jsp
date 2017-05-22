@@ -10,8 +10,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/material-components-web@0.11.1/dist/material-components-web.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/CSS/app.css" rel="stylesheet">
 </head>
 <body>
+
+
 	<%  User connected = (User) request.getAttribute("user"); %>
 	Welcome <% connected.getId(); %>
 	<br>
