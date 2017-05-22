@@ -46,6 +46,19 @@ public class TestConnection {
 			e.printStackTrace();
 		}
 		
+		DbUtils db2 = new DbUtils();
+		Connection cn2 = db.getConnection();
+		ResultSet resultats2 = null;
+		PreparedStatement ps2;
+		try {
+			ps2 = cn.prepareStatement("DELETE FROM USERS WHERE ID != ?");
+			ps2.setString(1, "ADMIN");
+			ps2.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		 
 		// User user = new User("ADMIN", "Bill", true);
 		//ArrayList messages = new ArrayList<Message>();

@@ -44,7 +44,7 @@ public class MessageService implements IMessageService {
 
 	@Override
 	public void deleteMessage(Message message, User connected) throws CannotDeleteMessageException {
-		if(message.getAuthor().getId().equals(connected) || connected.getAdministrator()){
+		if(message.getAuthor().getId().equals(connected.getId()) || connected.getAdministrator()){
 			messageDao.deleteMessage(message);
 		} else {
 			throw new CannotDeleteMessageException();
