@@ -1,12 +1,9 @@
 package fr.epsi.myEpsi.listener;
 
 import java.lang.management.ManagementFactory;
-import java.util.Optional;
-
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.MBeanRegistrationException;
 import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 import javax.servlet.ServletContextEvent;
@@ -23,11 +20,7 @@ import fr.epsi.myEpsi.service.IMessageService;
 import fr.epsi.myEpsi.service.IUserService;
 import fr.epsi.myEpsi.service.MessageService;
 import fr.epsi.myEpsi.service.UserService;
-import fr.epsi.myEpsi.servlet.Messages;
 import utils.JmxUtils;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 
 
@@ -40,10 +33,10 @@ public class startupListener implements ServletContextListener {
 	 Logger logger =  LogManager.getLogger(startupListener.class.getName());
 	 JmxUtils jmxUtils = new JmxUtils();
 	 
-
 	 
     public startupListener() {
     	MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+
     	
     	try{
     		ObjectName premierMBeanName = jmxUtils.getObjectName("fr.epsi.myEpsi.jmx:type=PremierMBean");    		
@@ -61,6 +54,7 @@ public class startupListener implements ServletContextListener {
     		ObjectName loggerBeanName = jmxUtils.getObjectName("fr.epsi.myEpsi.jmx:type=JmxLoggerMBean");    		
     		JmxLoggerMBean mbean = new JmxLogger();
     		mbs.registerMBean(mbean, loggerBeanName);  
+
     	} catch (NotCompliantMBeanException e) {
 			logger.error(e.getMessage());
 		} catch (InstanceAlreadyExistsException e) {

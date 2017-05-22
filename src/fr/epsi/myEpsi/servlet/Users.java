@@ -16,6 +16,8 @@ import fr.epsi.myEpsi.beans.Status;
 import fr.epsi.myEpsi.beans.User;
 import fr.epsi.myEpsi.service.IUserService;
 import fr.epsi.myEpsi.service.UserService;
+import utils.CannotDeleteAdminException;
+import utils.DuplicateUserException;
 
 /**
  * Servlet implementation class Users
@@ -55,18 +57,20 @@ public class Users extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User connected = (User) request.getSession().getAttribute("user");
-		if(connected == null){
-			  response.sendRedirect("Signin");
-		} else if(request.getParameter("action") != null && request.getParameter("action").equals("DELETE")) {
+		if(connected != null && request.getParameter("action") != null && request.getParameter("action").equals("DELETE")) {
 			this.doDelete(request, response);
-		} else if(request.getParameter("action") != null && request.getParameter("action").equals("PUT")) {
+		} else if(connected != null &&request.getParameter("action") != null && request.getParameter("action").equals("PUT")) {
 			this.doPut(request, response);
 		} else if(request.getParameter("password").equals(request.getParameter("repassword"))){   
 			User user = new User();
 			user.setId(request.getParameter("login"));
 			user.setPassword(request.getParameter("password"));
 			user.setAdministrator(Boolean.parseBoolean(request.getParameter("admin")));
-			userService.addUser(user);
+			try {
+				userService.addUser(user);
+			} catch (DuplicateUserException e) {
+				logger.error("Cannot create two user with same ID");
+			}
 			response.sendRedirect("Users");
 		} else {
 			response.sendRedirect("Users");
@@ -79,7 +83,11 @@ public class Users extends HttpServlet {
 			  response.sendRedirect("Signin");
 		} else {
 			User user = userService.getUserById(id);
-			userService.deleteUser(user);
+			try {
+				userService.deleteUser(user);
+			} catch (CannotDeleteAdminException e) {
+				logger.error("cannot delete user");
+			}
 			response.sendRedirect("Users");
 		}
 	}

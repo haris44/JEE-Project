@@ -9,6 +9,7 @@ import fr.epsi.myEpsi.beans.Message;
 import fr.epsi.myEpsi.beans.User;
 import fr.epsi.myEpsi.dao.IMessageDao;
 import fr.epsi.myEpsi.dao.MessageDao;
+import utils.CannotDeleteMessageException;
 
 public class MessageService implements IMessageService {
 
@@ -39,18 +40,20 @@ public class MessageService implements IMessageService {
 	public void updateMessageStatus(Message message, int status) {
 		message.setUpdateDate(new Timestamp(new Date().getTime()));
 		messageDao.updateMessageStatus(message, status);
-		
 	}
 
-
-	
 	@Override
-	public void deleteMessage(Message message) {
-		messageDao.deleteMessage(message);
+	public void deleteMessage(Message message, User connected) throws CannotDeleteMessageException {
+		if(message.getAuthor().getId().equals(connected) || connected.getAdministrator()){
+			messageDao.deleteMessage(message);
+		} else {
+			throw new CannotDeleteMessageException();
+		}
 	}
 	@Override
 	public List<Message> getListOfMessages() {
 		return messageDao.getListOfMessages();
 	}
+
 
 }

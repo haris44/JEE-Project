@@ -13,8 +13,7 @@ public class ConnectionService implements IConnectionService {
 	@Override
 	public boolean isAuthorized(User user) {
 		User baseUser = userService.getUserById(user.getId());
-		System.out.println(user.getId());
-		if(baseUser.getPassword().equals(user.getPassword())){
+		if(baseUser != null && baseUser.getPassword().equals(user.getPassword())){
 			return true;
 		}
 		return false;
