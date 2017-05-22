@@ -15,8 +15,7 @@
 <body id="signin">
 <style>
 #signin{
-	 background-image: url("${pageContext.request.contextPath}/IMG/bg.jpg");
-	 background-repeat:no-repeat;
+	 background-image: url("${pageContext.request.contextPath}/IMG/bg.jpg") bottom center no-repeat;
 }
 </style>
     <div class="mdc-layout-grid">
