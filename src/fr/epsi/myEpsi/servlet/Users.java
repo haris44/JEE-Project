@@ -16,6 +16,8 @@ import fr.epsi.myEpsi.beans.Status;
 import fr.epsi.myEpsi.beans.User;
 import fr.epsi.myEpsi.service.IUserService;
 import fr.epsi.myEpsi.service.UserService;
+import utils.CannotDeleteAdminException;
+import utils.DuplicateUserException;
 
 /**
  * Servlet implementation class Users
@@ -66,7 +68,11 @@ public class Users extends HttpServlet {
 			user.setId(request.getParameter("login"));
 			user.setPassword(request.getParameter("password"));
 			user.setAdministrator(Boolean.parseBoolean(request.getParameter("admin")));
-			userService.addUser(user);
+			try {
+				userService.addUser(user);
+			} catch (DuplicateUserException e) {
+				logger.error("Cannot create two user with same ID");
+			}
 			response.sendRedirect("Users");
 		} else {
 			response.sendRedirect("Users");
@@ -79,7 +85,11 @@ public class Users extends HttpServlet {
 			  response.sendRedirect("Signin");
 		} else {
 			User user = userService.getUserById(id);
-			userService.deleteUser(user);
+			try {
+				userService.deleteUser(user);
+			} catch (CannotDeleteAdminException e) {
+				logger.error("cannot delete user");
+			}
 			response.sendRedirect("Users");
 		}
 	}

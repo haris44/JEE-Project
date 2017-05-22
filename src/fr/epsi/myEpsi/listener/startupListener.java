@@ -38,7 +38,7 @@ public class startupListener implements ServletContextListener {
     	ObjectName name = null;
 
     	try {
-    	    name = new ObjectName("com.jmdoudoux.tests.jmx:type=PremierMBean");
+    	    name = new ObjectName("fr.epsi.myEpsi.jmx:type=PremierMBean");
     	    Premier mbean = new Premier();
     	    mbs.registerMBean(mbean, name);
 

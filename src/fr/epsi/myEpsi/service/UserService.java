@@ -5,6 +5,8 @@ import java.util.List;
 import fr.epsi.myEpsi.beans.User;
 import fr.epsi.myEpsi.dao.IUserDao;
 import fr.epsi.myEpsi.dao.UserDao;
+import utils.CannotDeleteAdminException;
+import utils.DuplicateUserException;
 
 public class UserService implements IUserService{
 
@@ -21,8 +23,12 @@ public class UserService implements IUserService{
 	}
 
 	@Override
-	public void addUser(User user) {
-		dao.addUser(user);	
+	public void addUser(User user) throws DuplicateUserException {
+		if(getUserById(user.getId()) == null){
+			dao.addUser(user);	
+		} else {
+			throw new DuplicateUserException();
+		}
 	}
 
 	@Override
@@ -31,8 +37,12 @@ public class UserService implements IUserService{
 	}
 
 	@Override
-	public void deleteUser(User user) {
-		dao.deleteUser(user);
+	public void deleteUser(User user) throws CannotDeleteAdminException {
+		if(!user.getAdministrator()){
+			dao.deleteUser(user);
+		} else {
+			throw new CannotDeleteAdminException();
+		}
 		
 	}
 
