@@ -59,13 +59,19 @@
 	    <div class="tooltip">
 	     <span class="tooltiptext">
 	     <%
-	     	if(message.getAuthor().getId().equals(connected.getId())){
-	     		out.println("posté par vous");
-	     	}else if (message.getAuthor().getAdministrator()){
-	    			out.println("posté par l'administrateur");
-	     	}else{
-	     		out.println("posté par ".concat(message.getAuthor().getId()));
-	     	}
+	     
+			try{
+				
+		     	if(message.getAuthor().getId().equals(connected.getId())){
+		     		out.println("posté par vous");
+		     	}else if (message.getAuthor().getAdministrator()){
+		    			out.println("posté par l'administrateur");
+		     	}else{
+		     		out.println("posté par ".concat(message.getAuthor().getId()));
+		     	}
+			} catch (NullPointerException e) {
+				out.println("posté par un utilisateur anonyme");
+			}
 	     %>
 	     </span>	
 	    <h1 class="mdc-card__title mdc-card__title--large">
