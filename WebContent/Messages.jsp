@@ -15,6 +15,7 @@
 <script type="text/javascript" src="https://unpkg.com/material-components-web@0.11.1/dist/material-components-web.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/CSS/app.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
@@ -32,7 +33,14 @@
       </span>
 
     </section>
-     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+     <section class="mdc-toolbar__section mdc-toolbar__section--align-right">
+     
+     	<%
+			if(connected.getAdministrator()){
+		%>
+		<a class="mdc-button title-button" href='Users'>Gérez les utilisateurs</a>
+		<% } %>
+     	<a class="mdc-button title-button" href='Logout'>DECONNEXION</a>
      </section>
   </div>
 
@@ -48,11 +56,28 @@
 		
 	<div class="mdc-card card-message">
 	  <section class="mdc-card__primary">
+	    <div class="tooltip">
+	     <span class="tooltiptext">
+	     <%
+	     	if(message.getAuthor().getId().equals(connected.getId())){
+	     		out.println("posté par vous");
+	     	}else if (message.getAuthor().getAdministrator()){
+	    			out.println("posté par l'administrateur");
+	     	}else{
+	     		out.println("posté par ".concat(message.getAuthor().getId()));
+	     	}
+	     %>
+	     </span>	
 	    <h1 class="mdc-card__title mdc-card__title--large">
+	    <i class="material-icons" 
+		   aria-label="User" tabindex="0">
+		  face
+		</i>
 	    <% 
 	   		 out.println( message.getId() + " - " + message.getTitle());
 		%> 
 	    </h1>
+		</div>
 	    <h2 class="mdc-card__subtitle">
 	    <% 
 			out.println("<br>date : " + message.getCreationDate());
@@ -170,12 +195,5 @@
 	
 </script>	
 
-
-<%
-	if(connected.getAdministrator()){
-%>
-<hr>
-<a href='Users'>Gérez les utilisateurs</a>
-<% } %>
 </body>
 </html>
