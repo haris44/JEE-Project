@@ -59,23 +59,26 @@
 	    <div class="tooltip">
 	     <span class="tooltiptext">
 	     <%
-	     
+	     	String color = "#212121";
 			try{
-				
 		     	if(message.getAuthor().getId().equals(connected.getId())){
 		     		out.println("posté par vous");
+		     		color = "green";
 		     	}else if (message.getAuthor().getAdministrator()){
 		    			out.println("posté par l'administrateur");
+		    			color = "red";
 		     	}else{
 		     		out.println("posté par ".concat(message.getAuthor().getId()));
+		     		color = "orange";
 		     	}
 			} catch (NullPointerException e) {
 				out.println("posté par un utilisateur anonyme");
+				color = "orange";
 			}
 	     %>
 	     </span>	
 	    <h1 class="mdc-card__title mdc-card__title--large">
-	    <i class="material-icons" 
+	    <i class="material-icons" style="color:<%out.print(color); %>"
 		   aria-label="User" tabindex="0">
 		  face
 		</i>
